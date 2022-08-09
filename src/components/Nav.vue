@@ -22,6 +22,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/styles/helper.scss";
   nav {
     display: flex;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
@@ -33,14 +34,14 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      color: #999;
+      color: $deep-grey;
       .icon{
         width: 32px;
         height: 32px;
       }
     }
     > .item.selected{
-      color: #59F;
+      color: $blue;
     }
   }
 </style>
