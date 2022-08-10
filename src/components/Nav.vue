@@ -34,14 +34,14 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      color: $deep-grey;
+      color: $color-dark-grey;
       .icon{
         width: 32px;
         height: 32px;
       }
     }
     > .item.selected{
-      color: $blue;
+      color: $color-blue;
     }
   }
 </style>
