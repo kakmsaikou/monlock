@@ -1,31 +1,136 @@
 <template>
   <div class="numberPad">
-    <div class="output">0.0</div>
+    <div>上一次的结果为：{{result000}}</div>
+    <div class="output">{{ output }}</div>
     <div class="buttons">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>删除</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>-</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>+</button>
-      <button>清空</button>
-      <button>0</button>
-      <button>.</button>
-      <button>OK</button>
+      <button @click="inputContent(1)">1</button>
+      <button @click="inputContent(2)">2</button>
+      <button @click="inputContent(3)">3</button>
+      <button @click="backspace">删除</button>
+      <button @click="inputContent(4)">4</button>
+      <button @click="inputContent(5)">5</button>
+      <button @click="inputContent(6)">6</button>
+      <button @click="addStr('-')">-</button>
+      <button @click="inputContent(7)">7</button>
+      <button @click="inputContent(8)">8</button>
+      <button @click="inputContent(9)">9</button>
+      <button @click="addStr('+')">+</button>
+      <button @click="clearContent">清空</button>
+      <button @click="inputZero">0</button>
+      <button @click="addDot">.</button>
+      <button @click="outputResult">OK</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'NumberPad'
-  };
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
+
+  @Component
+  export default class NumberPad extends Vue {
+    // 1 + 2 → outputX 为 1；str 为 +；outputY 为 2
+    outputX = '0';
+    str = '';
+    outputY = '';
+    result000 = 0;
+
+    get output() {
+      return this.outputX + this.str + this.outputY;
+    }
+
+    // 数字键
+    inputContent(input: number) {
+      this.clearZero();
+      this.str ? this.outputY += input : this.outputX += input;
+    }
+
+    // 0键
+    inputZero(){
+      if(this.str){
+        if(this.outputY.indexOf('0') !== 0){
+          return this.inputContent(0)
+        }else if(this.outputY.indexOf('.') > 0){
+          return this.inputContent(0)
+        }
+      }else{
+        if(this.outputX.indexOf('0') !== 0){
+          return this.inputContent(0)
+        }else if(this.outputX.indexOf('.') > 0){
+          return this.inputContent(0)
+        }
+      }
+    }
+
+    // 默认为 `0.0`，要在输入数字前把 `0.0` 清空
+    clearZero() {
+      if (this.outputX === '0') {
+        this.outputX = '';
+      }
+    }
+
+    // +/-键
+    addStr(str: string) {
+      const temp = this.calculate();
+      if (this.str && temp) {
+        this.clearContent();
+        this.outputX = '' + temp;
+        this.str = str;
+      } else if (this.outputX !== '0' && !this.str) {
+        this.str = str;
+      }
+    }
+
+    // 小数点键
+    addDot() {
+      if (!this.str && this.outputX.indexOf('.') === -1) {
+        this.outputX += '.';
+      } else if (this.str && this.outputY && this.outputY.indexOf('.') === -1) {
+        this.outputY += '.';
+      }
+    }
+
+    // 删除键
+    backspace() {
+      if(this.outputY){
+        this.outputY = this.outputY.substring(0, this.outputY.length-1)
+      }else if(this.str){
+        this.str = this.str.substring(0, this.str.length-1)
+      }else if(this.outputX.length > 1) {
+        this.outputX = this.outputX.substring(0, this.outputX.length-1)
+      }
+    }
+
+    // 清空键
+    clearContent() {
+      this.outputX = '0';
+      this.str = '';
+      this.outputY = '';
+    }
+
+    calculate() {
+      const x = parseFloat(this.outputX);
+      if (!this.str) {
+        return parseFloat(this.outputX);
+      }
+      const y = parseFloat(this.outputY);
+      if (this.str === '+') {
+        return x + y;
+      } else if (x - y < 0) {
+        return;
+      } else {
+        return x - y;
+      }
+    }
+
+    outputResult() {
+      if (this.calculate()) {
+        this.result000 = this.calculate();
+        this.clearContent();
+      }
+    }
+
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -41,6 +146,7 @@
       text-align: right;
       color: $color-red;
       line-height: 1;
+      height: 36px;
     }
 
     .buttons {
