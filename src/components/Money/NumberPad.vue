@@ -1,6 +1,6 @@
 <template>
   <div class="numberPad">
-    <div class="output">100</div>
+    <div class="output">0.0</div>
     <div class="buttons">
       <button>1</button>
       <button>2</button>
@@ -61,7 +61,7 @@
         border-radius: 9px;
         font-size: 20px;
 
-        &:last-child{
+        &:last-child {
           background-color: $color-red;
           color: white;
         }
