@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <Types/>
-    <Tags/>
+    <Tags :data-source.sync="tags"/>
     <Notes/>
     <NumberPad/>
   </Layout>
@@ -16,6 +16,12 @@
   export default {
     name: 'money',
     components: {Notes, Tags, Types, NumberPad},
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    data(){
+      return{
+        tags: ['衣','食','住','行']
+      }
+    }
   };
 </script>
 
