@@ -8,21 +8,19 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Types from '@/components/Money/Types.vue';
   import Tags from '@/components/Money/Tags.vue';
   import Notes from '@/components/Money/Notes.vue';
 
-  export default {
-    name: 'money',
-    components: {Notes, Tags, Types, NumberPad},
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    data(){
-      return{
-        tags: ['衣','食','住','行']
-      }
-    }
-  };
+  @Component({
+    components: {Notes, Tags, Types, NumberPad}
+  })
+  export default class Money extends Vue {
+    tags = ['衣', '食', '住', '行'];
+  }
 </script>
 
 <style lang="scss">
