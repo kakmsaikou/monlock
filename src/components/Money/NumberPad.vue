@@ -9,14 +9,14 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="addStr">-</button>
+      <button @click="inputContent">-</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="addStr">+</button>
+      <button @click="inputContent">+</button>
       <button @click="clearContent">清空</button>
       <button @click="inputContent">0</button>
-      <button @click="addDot">.</button>
+      <button @click="inputContent">.</button>
       <button @click="outputResult">OK</button>
     </div>
   </div>
@@ -28,7 +28,12 @@
 
   @Component
   export default class NumberPad extends Vue {
-    // 1 + 2 → outputX 为 1；str 为 +；outputY 为 2
+    /*
+    1 + 2
+    outputX → 1
+    str → +
+    outputY → 2
+    */
     outputX = '0';
     str = '';
     outputY = '';
@@ -37,65 +42,53 @@
       return this.outputX + this.str + this.outputY;
     }
 
-    // 0~9 数字键
+    // 0~9、+-、.键
     inputContent(event: MouseEvent): undefined {
       // 17位以上不能再加
       if (this.output.length >= 17) {
         return;
       }
 
-      const button = (event.target as HTMLButtonElement);
-      const input = button.textContent;
+      const input = '' + (event.target as HTMLButtonElement).textContent;
 
-      // '0'不能直接在后面加数字字符串
-      if(this.str && this.outputY === '0'){
-        return
-      }else if (this.outputX === '0'){
-        this.outputX = ''+input
-        return
+      if ('0123456789'.indexOf(input) >= 0) {
+        // '0'不能直接在后面加数字字符串
+        if (this.str && this.outputY === '0') {
+          return;
+        } else if (this.outputX === '0') {
+          this.outputX = input;
+          return;
+        }
+
+        // '1.00'、'1+1.00'不能再加数字
+        const temp = this.str ? this.outputY : this.outputX;
+        if (temp.indexOf('.') > 0 && temp.substring(temp.indexOf('.')).length >= 3) {
+          return;
+        }
+
+        this.str ? this.outputY += input : this.outputX += input;
       }
 
-      // '1.00'、'1+1.00'不能再加数字
-      const temp = this.str ? this.outputY: this.outputX
-      if (temp.indexOf('.') > 0 && temp.substring(temp.indexOf('.')).length >= 3) {
-        return;
+      if ('+-'.indexOf(input) >= 0) {
+        if (this.str && this.outputY) {
+          const temp = this.calculate();
+          this.clearContent();
+          this.outputX = '' + temp;
+          this.str = input;
+        } else if (this.outputX !== '0' && !this.str && this.outputX[this.outputX.length - 1] !== '.') {
+          this.str = input;
+        }
       }
 
-      this.str ? this.outputY += input : this.outputX += input;
-
-      return;
-    }
-
-    // +/-键
-    addStr(event: MouseEvent): undefined {
-      const button = (event.target as HTMLButtonElement);
-      if (this.output.length >= 17) {
-        return;
-      }
-      const input = button.textContent;
-      const temp = this.calculate();
-      if (this.str && temp) {
-        this.clearContent();
-        this.outputX = '' + temp;
-        this.str = ''+input;
-      } else if (this.outputX !== '0' && !this.str && this.outputX[this.outputX.length - 1] !== '.') {
-        this.str = ''+input;
-      }
-      return;
-    }
-
-    // 小数点键
-    addDot(): undefined {
-      if (this.output.length >= 17) {
-        return;
-      }
-      if (this.outputY && this.outputY.indexOf('.') < 0) {
-        // '1+'、'1+1.'、'1+1.0'不能再加小数点
-        this.outputY += '.';
-      } else if (!this.str && this.outputX.indexOf('.') < 0) {
-        // '1.0'不能加小数点
-        // '1+'的时候不能给 outputX 加上小数点
-        this.outputX += '.';
+      if('.'.indexOf(input) >= 0) {
+        if (this.outputY && this.outputY.indexOf('.') < 0) {
+          // '1+'、'1+1.'、'1+1.0'不能再加小数点
+          this.outputY += '.';
+        } else if (!this.str && this.outputX.indexOf('.') < 0) {
+          // '1.0'不能加小数点
+          // '1+'的时候不能给 outputX 加上小数点
+          this.outputX += '.';
+        }
       }
       return;
     }
@@ -143,7 +136,6 @@
       if (temp) {
         console.log(temp);
         this.clearContent();
-        return temp;
       }
       return;
     }
