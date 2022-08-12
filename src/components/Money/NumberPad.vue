@@ -9,11 +9,11 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="addStr('-')">-</button>
+      <button @click="addStr">-</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="addStr('+')">+</button>
+      <button @click="addStr">+</button>
       <button @click="clearContent">清空</button>
       <button @click="inputZero">0</button>
       <button @click="addDot">.</button>
@@ -44,12 +44,14 @@
         return;
       }
 
+
       // '1.00'、'1+1.00'不能加数字
       if (this.str) {
         if (this.outputY.substring(this.outputY.indexOf('.')).length === 3) {return;}
       } else if (this.outputX.substring(this.outputX.indexOf('.')).length === 3) {return;}
 
       const button = (event.target as HTMLButtonElement);
+
       if (button) {
         const input = button.textContent;
         // '0'不能直接在后面加数字
@@ -71,17 +73,19 @@
     }
 
     // +/-键
-    addStr(str: string): undefined {
+    addStr(event: MouseEvent): undefined {
+      const button = (event.target as HTMLButtonElement);
       if (this.output.length >= 17) {
         return;
       }
+      const input = button.textContent;
       const temp = this.calculate();
       if (this.str && temp) {
         this.clearContent();
         this.outputX = '' + temp;
-        this.str = str;
+        this.str = ''+input;
       } else if (this.outputX !== '0' && !this.str && this.outputX[this.outputX.length - 1] !== '.') {
-        this.str = str;
+        this.str = ''+input;
       }
       return;
     }
