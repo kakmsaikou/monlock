@@ -15,7 +15,7 @@
       <button @click="inputContent">9</button>
       <button @click="addStr">+</button>
       <button @click="clearContent">清空</button>
-      <button @click="inputZero">0</button>
+      <button @click="inputContent">0</button>
       <button @click="addDot">.</button>
       <button @click="outputResult">OK</button>
     </div>
@@ -37,39 +37,33 @@
       return this.outputX + this.str + this.outputY;
     }
 
-    // 1~9 数字键
+    // 0~9 数字键
     inputContent(event: MouseEvent): undefined {
       // 17位以上不能再加
       if (this.output.length >= 17) {
         return;
       }
 
-
-      // '1.00'、'1+1.00'不能加数字
-      if (this.str) {
-        if (this.outputY.substring(this.outputY.indexOf('.')).length === 3) {return;}
-      } else if (this.outputX.substring(this.outputX.indexOf('.')).length === 3) {return;}
-
       const button = (event.target as HTMLButtonElement);
+      const input = button.textContent;
 
-      if (button) {
-        const input = button.textContent;
-        // '0'不能直接在后面加数字
-        if (this.outputX === '0') {
-          this.outputX = '' + input;
-          return;
-        }
-        this.str ? this.outputY += input : this.outputX += input;
+      // '0'不能直接在后面加数字字符串
+      if(this.str && this.outputY === '0'){
+        return
+      }else if (this.outputX === '0'){
+        this.outputX = ''+input
+        return
       }
-      return;
-    }
 
-    // 0键
-    inputZero(event: MouseEvent): undefined {
-      if (this.str && this.outputY === '0' || this.outputX === '0') {
+      // '1.00'、'1+1.00'不能再加数字
+      const temp = this.str ? this.outputY: this.outputX
+      if (temp.indexOf('.') > 0 && temp.substring(temp.indexOf('.')).length >= 3) {
         return;
       }
-      return this.inputContent(event);
+
+      this.str ? this.outputY += input : this.outputX += input;
+
+      return;
     }
 
     // +/-键
