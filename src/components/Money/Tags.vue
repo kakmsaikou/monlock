@@ -1,12 +1,12 @@
 <template>
   <div class="tags">
     <ul class="currentTags">
-      <li v-for='tag in dataSource' :key="tag" @click="toggle.call(null,tag)"
+      <li v-for='tag in dataSource' :key="tag" @click="toggleTag.call(null,tag)"
           :class="{selected: selectedTags.indexOf(tag) >= 0}">{{ tag }}
       </li>
     </ul>
     <div class="newTag">
-      <button @click="create">新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
     @Prop(Array) readonly dataSource: string[] | undefined;
     selectedTags: string[] = [];
 
-    toggle(tag: string): undefined {
+    toggleTag(tag: string): undefined {
       const index = this.selectedTags.indexOf(tag);
       if (index >= 0) {
         this.selectedTags.splice(index, 1);
@@ -31,7 +31,7 @@
       return;
     }
 
-    create(): undefined {
+    createTag(): undefined {
       const name = window.prompt('请输入标签名');
       if (name === '') {
         window.alert('标签名不能为空');

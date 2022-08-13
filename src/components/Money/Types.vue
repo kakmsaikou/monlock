@@ -7,25 +7,18 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class Types extends Vue {
-    type = '-'; // '-'表示支出，'+'表示收入
+    @Prop(String)readonly type!: string;
 
-    selectType(type: string): undefined {
-      if (['-', '+'].indexOf(type) < 0) {
+    selectType(newType: string): undefined {
+      if (['-', '+'].indexOf(newType) < 0) { // '-'表示支出，'+'表示收入
         throw new Error('type is unknown');
       }
-      this.type = type;
+      this.$emit('update:type',newType)
       return;
-    }
-
-    // 为了防止反复点击 收入/支出 多次触发同一个事件，使用 watch 更好
-    @Watch('type')
-    onTypeChange(val:'string'): undefined{
-      this.$emit('update:value',val)
-      return
     }
   }
 </script>

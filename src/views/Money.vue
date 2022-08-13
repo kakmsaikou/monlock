@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <Types @update:value="onUpdateType"/>
+    <Types :type.sync="record.type"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Notes @update:value="onUpdateNotes"/>
     <NumberPad @update:value="onUpdateAmount"/>
@@ -15,30 +15,40 @@
   import Tags from '@/components/Money/Tags.vue';
   import Notes from '@/components/Money/Notes.vue';
 
+  // Record 类型声明
+  type Record = {
+    type: string,
+    tags: string[],
+    notes: string,
+    amount: number | undefined
+  }
+
   @Component({
     components: {Notes, Tags, Types, NumberPad}
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
 
-    onUpdateType(type: string):undefined{
-      console.log(type)
-      return
+    record: Record = {
+      type: '-',
+      tags: [],
+      notes: '',
+      amount: undefined
+    };
+
+    onUpdateTags(tags: string[]): undefined {
+      this.record.tags = tags
+      return;
     }
 
-    onUpdateTags(tags: string):undefined{
-      console.log(tags)
-      return
+    onUpdateNotes(value: string): undefined {
+      this.record.notes = value
+      return;
     }
 
-    onUpdateNotes(value: string):undefined{
-      console.log(value)
-      return
-    }
-
-    onUpdateAmount(amount: number):undefined{
-      console.log(amount)
-      return
+    onUpdateAmount(amount: number): undefined {
+      this.record.amount = amount
+      return;
     }
   }
 </script>
