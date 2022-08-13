@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
 
   @Component
   export default class Types extends Vue {
@@ -19,6 +19,13 @@
       }
       this.type = type;
       return;
+    }
+
+    // 为了防止反复点击 收入/支出 多次触发同一个事件，使用 watch 更好
+    @Watch('type')
+    onTypeChange(val:'string'): undefined{
+      this.$emit('update:value',val)
+      return
     }
   }
 </script>

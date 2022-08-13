@@ -17,7 +17,7 @@
       <button @click="clearContent">清空</button>
       <button @click="inputContent">0</button>
       <button @click="inputContent">.</button>
-      <button @click="outputResult">OK</button>
+      <button @click="emitOutput">OK</button>
     </div>
   </div>
 </template>
@@ -80,7 +80,7 @@
         }
       }
 
-      if('.'.indexOf(input) >= 0) {
+      if ('.'.indexOf(input) >= 0) {
         if (this.outputY && this.outputY.indexOf('.') < 0) {
           // '1+'、'1+1.'、'1+1.0'不能再加小数点
           this.outputY += '.';
@@ -118,23 +118,25 @@
 
     calculate(): number | undefined {
       const x = parseFloat(this.outputX);
-      if (this.str && this.outputY) {
-        const y = parseFloat(this.outputY);
-        if (this.str === '+') {
-          return x + y;
-        } else if (x - y < 0) {
-          return;
-        } else {
-          return x - y;
-        }
+      let y = 0;
+      if (this.outputY) {
+        y = parseFloat(this.outputY);
       }
-      return parseFloat(this.outputX);
+      if (this.str === '-') {
+        return x - y >= 0 ? x - y : undefined;
+      } else {
+        return x + y;
+      }
     }
 
-    outputResult(): number | undefined {
+    emitOutput(): number | undefined {
       const temp = this.calculate();
+      // 1-1 时应该清空 Content
+      if(temp === 0){
+        this.clearContent()
+      }
       if (temp) {
-        console.log(temp);
+        this.$emit('update:value', temp);
         this.clearContent();
       }
       return;
