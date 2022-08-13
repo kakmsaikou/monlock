@@ -28,15 +28,15 @@
 
   @Component
   export default class NumberPad extends Vue {
-    /*
-    1 + 2
-    outputX → 1
-    str → +
-    outputY → 2
-    */
-    outputX = '0';
+    // 1 + 2，outputX为1、str为+、outputY为2
+    outputX = '';
     str = '';
     outputY = '';
+
+    created(): undefined {
+      this.clearContent();
+      return;
+    }
 
     get output(): string {
       return this.outputX + this.str + this.outputY;
@@ -150,7 +150,6 @@
         this.clearContent();
         return;
       }
-
       if (temp) {
         this.$emit('update:value', parseFloat(temp));
         this.clearContent();
