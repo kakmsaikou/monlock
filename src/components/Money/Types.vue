@@ -15,7 +15,7 @@
 
     selectType(newType: string): undefined {
       if (['-', '+'].indexOf(newType) < 0) { // '-'表示支出，'+'表示收入
-        throw new Error('type is unknown');
+        throw new Error('Type is unknown');
       }
       this.$emit('update:type',newType)
       return;

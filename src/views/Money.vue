@@ -47,6 +47,7 @@
     }
 
     onUpdateAmount(amount: number): undefined {
+      console.log(amount)
       this.record.amount = amount
       return;
     }

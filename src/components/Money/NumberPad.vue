@@ -55,9 +55,19 @@
         // '0'不能直接在后面加数字字符串
         if (this.str && this.outputY === '0') {
           return;
-        } else if (this.outputX === '0') {
-          this.outputX = input;
-          return;
+        }
+
+        // 10-10+ → 0+ 不能把新数加到outputX上、不能在outputY=0后还执行替换操作
+        if (this.outputX === '0') {
+          if (this.str) {
+            if (this.outputY === '') {
+              this.outputY = input;
+              return;
+            }
+          } else {
+            this.outputX = input;
+            return;
+          }
         }
 
         // '1.00'、'1+1.00'不能再加数字
@@ -70,10 +80,14 @@
       }
 
       if ('+-'.indexOf(input) >= 0) {
-        if (this.str && this.outputY) {
-          const temp = this.calculate();
+        const temp = this.calculate();
+        // 10-10 的情况下不能再减号
+        if (temp === '0' && input === '-') {
+          return;
+        }
+        if (this.str && this.outputY && temp) {
           this.clearContent();
-          this.outputX = '' + temp;
+          this.outputX = temp;
           this.str = input;
         } else if (this.outputX !== '0' && !this.str && this.outputX[this.outputX.length - 1] !== '.') {
           this.str = input;
@@ -116,27 +130,29 @@
       return;
     }
 
-    calculate(): number | undefined {
+    calculate(): string | undefined {
       const x = parseFloat(this.outputX);
       let y = 0;
       if (this.outputY) {
         y = parseFloat(this.outputY);
       }
       if (this.str === '-') {
-        return x - y >= 0 ? x - y : undefined;
+        return x - y >= 0 ? (x - y).toString() : undefined;
       } else {
-        return x + y;
+        return (x + y).toString();
       }
     }
 
     emitOutput(): number | undefined {
       const temp = this.calculate();
       // 1-1 时应该清空 Content
-      if(temp === 0){
-        this.clearContent()
+      if (temp === '0') {
+        this.clearContent();
+        return;
       }
+
       if (temp) {
-        this.$emit('update:value', temp);
+        this.$emit('update:value', parseFloat(temp));
         this.clearContent();
       }
       return;
