@@ -1,5 +1,6 @@
 <template>
   <Layout class-prefix="layout">
+    {{ recordList }}
     <Types :type.sync="record.type"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Notes @update:value="onUpdateNotes"/>
@@ -21,6 +22,7 @@
     tags: string[],
     notes: string,
     amount: number | undefined
+    createdAt?: Date
   }
 
   @Component({
@@ -33,32 +35,34 @@
       type: '-',
       tags: [],
       notes: '',
-      amount: undefined
+      amount: undefined, // 数据类型
     };
 
-    recordList: Record[] = [];
+    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
     onUpdateTags(tags: string[]): undefined {
-      this.record.tags = tags
+      this.record.tags = tags;
       return;
     }
 
     onUpdateNotes(value: string): undefined {
-      this.record.notes = value
+      this.record.notes = value;
       return;
     }
 
     saveRecord(amount: number): undefined {
-      this.record.amount = amount
-      const cloneRecord = JSON.parse(JSON.stringify(this.record))
-      this.recordList.push(cloneRecord)
-      console.log(this.recordList)
+      this.record.amount = amount;
+      this.record.createdAt = new Date();
+
+      const cloneRecord: Record = JSON.parse(JSON.stringify(this.record));
+      this.recordList.push(cloneRecord);
       return;
     }
 
     @Watch('recordList')
-    onRecordListChange(){
-      window.localStorage.setItem('recordList', JSON.stringify(this.recordList))
+    onRecordListChange(): undefined {
+      window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+      return;
     }
   }
 </script>
