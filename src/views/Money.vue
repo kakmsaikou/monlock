@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{ recordList }}
     <Types :type.sync="record.type"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Notes @update:value="onUpdateNotes"/>
@@ -15,30 +14,23 @@
   import Types from '@/components/Money/Types.vue';
   import Tags from '@/components/Money/Tags.vue';
   import Notes from '@/components/Money/Notes.vue';
-
-  // Record 类型声明
-  type Record = {
-    type: string,
-    tags: string[],
-    notes: string,
-    amount: number | undefined
-    createdAt?: Date
-  }
+  import recordListModel from '@/models/recordListModel';
+  import tagListModel from '@/models/tagListModel';
 
   @Component({
     components: {Notes, Tags, Types, NumberPad}
   })
-  export default class Money extends Vue {
-    tags = ['衣', '食', '住', '行'];
 
-    record: Record = {
+  export default class Money extends Vue {
+    recordList = recordListModel.fetch();
+    tags = tagListModel.fetch();
+
+    record: RecordItem = {
       type: '-',
       tags: [],
       notes: '',
-      amount: undefined, // 数据类型
+      amount: undefined,
     };
-
-    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
     onUpdateTags(tags: string[]): undefined {
       this.record.tags = tags;
@@ -54,14 +46,14 @@
       this.record.amount = amount;
       this.record.createdAt = new Date();
 
-      const cloneRecord: Record = JSON.parse(JSON.stringify(this.record));
+      const cloneRecord: RecordItem = recordListModel.clone(this.record);
       this.recordList.push(cloneRecord);
       return;
     }
 
     @Watch('recordList')
     onRecordListChange(): undefined {
-      window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+      recordListModel.save(this.recordList);
       return;
     }
   }
@@ -71,6 +63,7 @@
   .layout-content {
     display: flex;
     flex-direction: column;
+    background-color: white;
   }
 </style>
 

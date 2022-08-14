@@ -17,7 +17,7 @@
       <button @click="clearContent">清空</button>
       <button @click="inputContent">0</button>
       <button @click="inputContent">.</button>
-      <button @click="emitOutput">OK</button>
+      <button @click="confirmContent">OK</button>
     </div>
   </div>
 </template>
@@ -143,7 +143,7 @@
       }
     }
 
-    emitOutput(): number | undefined {
+    confirmContent(): undefined {
       const temp = this.calculate();
       // 1-1 时应该清空 Content
       if (temp === '0') {

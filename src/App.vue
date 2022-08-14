@@ -15,5 +15,6 @@
     font-family: $font-hei;
     line-height: 1.5;
     font-size: 16px;
+    background-color: rgb(245,246,248);
   }
 </style>
