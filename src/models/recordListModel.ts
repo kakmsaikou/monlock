@@ -12,7 +12,8 @@ const recordListModel = {
   save(data: RecordItem[]): undefined {
     window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
     return;
-  }
+  },
+
 };
 
 export default recordListModel;
