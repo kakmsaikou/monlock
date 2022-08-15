@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{record}}
     <Types :type.sync="record.type"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <div class="formItem-wrapper">

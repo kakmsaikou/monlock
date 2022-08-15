@@ -11,3 +11,8 @@ type RecordItem = {
   amount: number | undefined
   createdAt?: Date
 }
+
+type Tag = {
+  id: string,
+  name: string
+}
