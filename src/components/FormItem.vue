@@ -1,7 +1,7 @@
 <template>
   <label class="formItem">
     <span class="name" v-if="fieldName">{{ fieldName }}</span>
-    <input type="text" v-model="value" :placeholder="placeholder">
+    <input type="text" :value="value" @input="onValueChange($event.target.value)" :placeholder="placeholder">
   </label>
 </template>
 
@@ -11,7 +11,7 @@
 
   @Component
   export default class FormItem extends Vue {
-    @Prop({default:''}) value!:string;
+    @Prop({default: ''}) readonly value!: string;
 
     @Prop() fieldName?: string;
 
