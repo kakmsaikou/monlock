@@ -48,14 +48,13 @@
       this.record.amount = amount;
       this.record.createdAt = new Date();
 
-      const cloneRecord: RecordItem = recordListModel.clone(this.record);
-      this.recordList.push(cloneRecord);
+      recordListModel.created(this.record)
       return;
     }
 
     @Watch('recordList')
     onRecordListChange(): undefined {
-      recordListModel.save(this.recordList);
+      recordListModel.save();
       return;
     }
   }
