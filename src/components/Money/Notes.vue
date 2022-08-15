@@ -1,16 +1,18 @@
 <template>
   <label class="notes">
-    <input type="text" v-model="value" placeholder="点此输入备注…">
+    <input type="text" v-model="value" :placeholder="placeholder">
   </label>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
   export default class Notes extends Vue {
     value = '';
+
+    @Prop() placeholder?: string;
 
     @Watch('value')
     onValueChange(val: string) :undefined{

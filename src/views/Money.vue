@@ -2,7 +2,7 @@
   <Layout class-prefix="layout">
     <Types :type.sync="record.type"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
-    <Notes @update:value="onUpdateNotes"/>
+    <Notes @update:value="onUpdateNotes" placeholder="点此输入备注..."/>
     <NumberPad @update:value="saveRecord"/>
   </Layout>
 </template>
