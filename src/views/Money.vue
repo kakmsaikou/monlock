@@ -22,10 +22,9 @@
   @Component({
     components: {FormItem, Tags, Types, NumberPad}
   })
-
   export default class Money extends Vue {
     recordList = recordListModel.fetch();
-    tags = tagListModel.fetch();
+    tag = window.tagList;
 
     record: RecordItem = {
       type: '-',
@@ -48,7 +47,7 @@
       this.record.amount = amount;
       this.record.createdAt = new Date();
 
-      recordListModel.created(this.record)
+      recordListModel.created(this.record);
       return;
     }
 
@@ -69,7 +68,7 @@
 </style>
 
 <style lang="scss" scoped>
-  .formItem-wrapper{
+  .formItem-wrapper {
     background-color: #f5f5f5;
     box-shadow: 0 -2px 2px -2px rgba(0, 0, 0, 0.15);
   }
