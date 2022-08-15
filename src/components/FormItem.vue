@@ -17,7 +17,6 @@
 
     @Prop() placeholder?: string;
 
-    @Watch('value')
     onValueChange(val: string): undefined {
       this.$emit('update:value', val);
       return;
