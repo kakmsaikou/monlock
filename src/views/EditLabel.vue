@@ -51,8 +51,7 @@
 
     remove(){
       if(this.tag){
-        const result = tagListModel.remove(this.tag.id)
-        if (result){
+        if (tagListModel.remove(this.tag.id)){
           alert('删除成功')
           this.$router.back()
         }
