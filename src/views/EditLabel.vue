@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="navBar">
-      <Icon name="left"/>
+      <Icon name="left" @click.native="goBack"/>
       <span>编辑标签</span>
     </div>
     <div class="form-wrapper">
@@ -39,6 +39,10 @@
       }
     }
 
+    goBack(){
+      this.$router.back()
+    }
+
     update(name: string) {
       if (this.tag) {
         tagListModel.update(this.tag.id, name);
@@ -50,7 +54,7 @@
         const result = tagListModel.remove(this.tag.id)
         if (result){
           alert('删除成功')
-          this.$router.replace('/labels');
+          this.$router.back()
         }
       }
     }
