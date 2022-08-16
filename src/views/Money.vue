@@ -22,7 +22,7 @@
     components: {FormItem, Tags, Types, NumberPad}
   })
   export default class Money extends Vue {
-    recordList = recordListModel.fetch();
+    recordList = window.recordList;
     tags = window.tagList;
 
     record: RecordItem = {
