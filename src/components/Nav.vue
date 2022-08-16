@@ -23,11 +23,13 @@
 
 <style lang="scss" scoped>
   @import "~@/assets/styles/helper.scss";
+
   nav {
     display: flex;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.05);
     font-size: 12px;
     background-color: white;
+
     > .item {
       padding: 2px 0;
       flex-grow: 1;
@@ -36,12 +38,19 @@
       align-items: center;
       flex-direction: column;
       color: $color-dark-grey;
-      .icon{
+
+      .icon {
         width: 32px;
         height: 32px;
       }
     }
-    > .item.selected{
+
+    > :last-child .icon{
+        width: 28px;
+        height: 28px;
+    }
+
+    > .item.selected {
       color: $color-blue;
     }
   }

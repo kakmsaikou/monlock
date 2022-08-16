@@ -43,7 +43,6 @@ const tagListModel: TagListModel = {
         break;
       }
     }
-    console.log(index)
     this.data.splice(index, 1);
     this.save()
     return true

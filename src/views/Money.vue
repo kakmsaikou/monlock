@@ -17,14 +17,13 @@
   import Tags from '@/components/Money/Tags.vue';
   import FormItem from '@/components/FormItem.vue';
   import recordListModel from '@/models/recordListModel';
-  import tagListModel from '@/models/tagListModel';
 
   @Component({
     components: {FormItem, Tags, Types, NumberPad}
   })
   export default class Money extends Vue {
     recordList = recordListModel.fetch();
-    tag = window.tagList;
+    tags = window.tagList;
 
     record: RecordItem = {
       type: '-',
@@ -46,7 +45,6 @@
     saveRecord(amount: number): undefined {
       this.record.amount = amount;
       this.record.createdAt = new Date();
-
       recordListModel.created(this.record);
       return;
     }
