@@ -1,4 +1,6 @@
 // 存放全局变量
+import RecordListModel from '@/models/recordListModel';
+
 declare module '*.svg' {
   const content: string;
   export default content;
@@ -33,5 +35,5 @@ interface Window {
   updateTag: TagListModel['update']
   findTag: (id: string) => Tag | undefined
   recordList: RecordItem[]
-  createRecord: (record: RecordItem) => void
+  createRecord: RecordListModel['created']
 }
