@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{ recordList }}
     <Types :type.sync="record.type"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <div class="formItem-wrapper">
@@ -17,13 +16,14 @@
   import Types from '@/components/Money/Types.vue';
   import Tags from '@/components/Money/Tags.vue';
   import FormItem from '@/components/FormItem.vue';
+  import store from '@/store/index2';
 
   @Component({
     components: {FormItem, Tags, Types, NumberPad}
   })
   export default class Money extends Vue {
-    recordList = window.recordList;
-    tags = window.tagList;
+    recordList = store.recordList;
+    tags = store.tagList;
 
     record: RecordItem = {
       type: '-',
@@ -45,7 +45,7 @@
     saveRecord(amount: number): undefined {
       this.record.amount = amount;
       this.record.createdAt = new Date();
-      window.createRecord(this.record);
+      store.createRecord(this.record);
       return;
     }
   }
