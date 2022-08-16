@@ -8,6 +8,7 @@ const recordListModel = {
   created(record: RecordItem) {
     const recordClone : RecordItem = clone(record)
     this.data.push(recordClone)
+    this.save()
   },
 
   fetch(): RecordItem[] {

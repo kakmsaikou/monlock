@@ -31,6 +31,7 @@ interface Window {
   createTag: (name: string) => void
   removeTag: (id: string) => boolean
   updateTag: TagListModel['update']
-  findTag: (id:string) => Tag | undefined
+  findTag: (id: string) => Tag | undefined
   recordList: RecordItem[]
+  createRecord: (record: RecordItem) => void
 }

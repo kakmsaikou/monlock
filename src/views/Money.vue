@@ -1,5 +1,6 @@
 <template>
   <Layout class-prefix="layout">
+    {{ recordList }}
     <Types :type.sync="record.type"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <div class="formItem-wrapper">
@@ -11,12 +12,11 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Types from '@/components/Money/Types.vue';
   import Tags from '@/components/Money/Tags.vue';
   import FormItem from '@/components/FormItem.vue';
-  import recordListModel from '@/models/recordListModel';
 
   @Component({
     components: {FormItem, Tags, Types, NumberPad}
@@ -45,13 +45,7 @@
     saveRecord(amount: number): undefined {
       this.record.amount = amount;
       this.record.createdAt = new Date();
-      recordListModel.created(this.record);
-      return;
-    }
-
-    @Watch('recordList')
-    onRecordListChange(): undefined {
-      recordListModel.save();
+      window.createRecord(this.record);
       return;
     }
   }
