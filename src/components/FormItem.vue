@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class FormItem extends Vue {
@@ -44,6 +44,7 @@
       background-color: transparent;
       border: none;
       padding-right: 16px;
+      padding-bottom: 3px;
       color: $color-blue;
     }
   }
