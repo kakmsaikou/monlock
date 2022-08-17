@@ -21,11 +21,10 @@
   import {Component} from 'vue-property-decorator';
   import FormItem from '@/components/FormItem.vue';
   import Button from '@/components/Button.vue';
-  import store from '@/store/index2';
 
   @Component({components: {FormItem, Button}})
   export default class EditLabel extends Vue {
-    tag = store.findTag(this.$route.params.id)
+    tag?:Tag = undefined
 
     created() {
       if(!this.tag){
@@ -39,16 +38,19 @@
 
     update(name: string) {
       if (this.tag) {
-        store.updateTag(this.tag.id, name);
+        // TODO
+        // store.updateTag(this.tag.id, name);
       }
     }
 
     remove() {
       if (this.tag) {
-        if (store.removeTag(this.tag.id)) {
-          alert('删除成功');
-          this.$router.back();
-        }
+        return
+        // TODO
+        // if (store.removeTag(this.tag.id)) {
+        //   alert('删除成功');
+        //   this.$router.back();
+        // }
       }
     }
   }
