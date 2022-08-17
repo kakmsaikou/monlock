@@ -19,13 +19,12 @@
 
   @Component({
     components: {FormItem, Tags, Types, NumberPad},
-    computed:{
-      recordList(){
-        return this.$store.state.recordList;
-      }
-    }
   })
   export default class Money extends Vue {
+    get recordList() {
+      return this.$store.state.recordList;
+    }
+
     record: RecordItem = {
       type: '-',
       tags: [],
@@ -33,8 +32,8 @@
       amount: undefined,
     };
 
-    created(){
-      this.$store.commit('fetchRecords',)
+    created() {
+      this.$store.commit('fetchRecords',);
     }
 
     onUpdateNotes(value: string): undefined {
@@ -45,7 +44,7 @@
     saveRecord(amount: number): undefined {
       this.record.amount = amount;
       this.record.createdAt = new Date();
-      this.$store.commit('createRecord', this.record)
+      this.$store.commit('createRecord', this.record);
       return;
     }
   }
