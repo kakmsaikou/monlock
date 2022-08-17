@@ -22,12 +22,17 @@
   import FormItem from '@/components/FormItem.vue';
   import Button from '@/components/Button.vue';
 
-  @Component({components: {FormItem, Button}})
+  @Component({
+    components: {FormItem, Button},
+  })
   export default class EditLabel extends Vue {
-    tag?:Tag = undefined
+    get tag(){
+      return this.$store.state.currentTag
+    }
 
     created() {
-      if(!this.tag){
+      this.$store.commit('setCurrentTag', this.$route.params.id)
+      if (!this.tag) {
         this.$router.replace('/404');
       }
     }
@@ -45,7 +50,7 @@
 
     remove() {
       if (this.tag) {
-        return
+        return;
         // TODO
         // if (store.removeTag(this.tag.id)) {
         //   alert('删除成功');
