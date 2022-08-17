@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <ul class="currentTags">
-      <li v-for='tag in dataSource' :key="tag.id" @click="toggleTag.call(null,tag)"
+      <li v-for='tag in tags' :key="tag.id" @click="toggleTag.call(null,tag)"
           :class="{selected: selectedTags.indexOf(tag) >= 0}">{{ tag.name }}
       </li>
     </ul>
@@ -13,11 +13,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
+  import store from '@/store/index2';
 
   @Component
   export default class Tags extends Vue {
-    @Prop(Array) readonly dataSource: string[] | undefined;
+    tags = store.fetch();
     selectedTags: string[] = [];
 
     toggleTag(tag: string): undefined {
@@ -33,12 +34,11 @@
 
     createTag(): undefined {
       const name = window.prompt('请输入标签名');
-      if (name === '') {
+      if (!name) {
         window.alert('标签名不能为空');
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      } else if (this.dataSource && this.dataSource.indexOf(name!) < 0) {
-        this.$emit('update:dataSource', [...this.dataSource, name]);
+        return
       }
+      store.createTag(name);
       return;
     }
   }
