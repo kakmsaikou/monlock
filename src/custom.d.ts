@@ -9,7 +9,7 @@ type RecordItem = {
   tags: string[],
   notes: string,
   amount: number | undefined
-  createdAt?: Date
+  createdAt?: string
 }
 
 type Tag = {
@@ -24,6 +24,12 @@ type TagListModel = {
   update: (id: string, name: string) => string
   remove: (id: string) => boolean
   save: () => void
+}
+
+type RootState = {
+  recordList:RecordItem[],
+  tagList: Tag[],
+  currentTag?: Tag
 }
 
 // interface Window {

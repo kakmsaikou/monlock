@@ -1,7 +1,7 @@
 <template>
   <ul class="tabs">
     <li v-for="item in dataSource" :key="item.value" @click="select(item)"
-        :class="liClass(item)">
+        class="tabs-item" :class="liClass(item)">
       {{ item.text }}
     </li>
   </ul>
@@ -43,10 +43,9 @@
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
     color: #7BF;
 
-    > li {
+    &-item {
       width: 50%;
-      $h: 64px;
-      height: $h;
+      height: 64px;
       display: flex;
       justify-content: center;
       align-items: center;

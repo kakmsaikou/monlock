@@ -46,7 +46,7 @@
 
     saveRecord(amount: number): undefined {
       this.record.amount = amount;
-      this.record.createdAt = new Date();
+      this.record.createdAt = new Date().toISOString();
       this.$store.commit('createRecord', this.record);
       return;
     }
