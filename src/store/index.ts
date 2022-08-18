@@ -15,20 +15,21 @@ const store = new Vuex.Store({
 
   mutations: {
     // recordStore
-    fetchRecords (state){
+    fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state, record) {
       const recordClone: RecordItem = clone(record);
       state.recordList.push(recordClone);
-      store.commit('saveRecords')
+      store.commit('saveRecords');
+      window.alert('已保存');
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
 
     // tagStore
-    fetchTags(state){
+    fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
     },
     createTag(state, name: string) {
@@ -37,26 +38,26 @@ const store = new Vuex.Store({
         window.alert('标签名重复');
       }
       state.tagList.push({id: createId().toString(), name: name});
-      store.commit('saveTags')
+      store.commit('saveTags');
       window.alert('添加成功');
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
-    updateTag(state, payload:{id:string,name:string}) {
-      const {id, name} = payload
+    updateTag(state, payload: { id: string, name: string }) {
+      const {id, name} = payload;
       const tag = state.tagList.filter(item => item.id === id)[0];
       if (tag) {
         const names = state.tagList.map(item => item.name);
         if (names.indexOf(name) >= 0) {
-          window.alert('标签名重复')
+          window.alert('标签名重复');
         } else {
           tag.name = name;
-          store.commit('saveTags')
+          store.commit('saveTags');
         }
       }
     },
-    removeTag(state,id: string) {
+    removeTag(state, id: string) {
       let index = -1;
       for (let i = 0; i < state.tagList.length; i++) {
         if (state.tagList[i].id === id) {
@@ -64,18 +65,18 @@ const store = new Vuex.Store({
           break;
         }
       }
-      if(index >= 0){
+      if (index >= 0) {
         state.tagList.splice(index, 1);
-        store.commit('saveTags')
-        window.alert('删除成功')
-        router.back()
-      }else {
-        window.alert('删除失败')
+        store.commit('saveTags');
+        window.alert('删除成功');
+        router.back();
+      } else {
+        window.alert('删除失败');
       }
     },
 
     // currentTag
-    setCurrentTag(state, id:string){
+    setCurrentTag(state, id: string) {
       state.currentTag = state.tagList.filter(t => t.id === id)[0];
     }
   },

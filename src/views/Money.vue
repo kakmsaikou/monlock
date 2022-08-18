@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <Tabs :data-source="recordTypeList" :value.sync="record.type" />
-    <Tags/>
+    <Tags :data-source="recordTypeList" :value.sync="record.tags"/>
     <div class="formItem-wrapper">
       <FormItem @update:value="onUpdateNotes" placeholder="点此输入备注..."/>
     </div>
@@ -35,7 +35,7 @@
 
     recordTypeList = recordTypeList;
 
-    created() {
+    beforeCreate() {
       this.$store.commit('fetchRecords',);
     }
 
