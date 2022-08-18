@@ -9,7 +9,7 @@
       记账
     </router-link>
     <router-link to="/statistic" class="item" active-class="selected">
-      <Icon name="statistics"/>
+      <Icon name="statistic"/>
       统计
     </router-link>
   </nav>
