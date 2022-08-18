@@ -1,9 +1,9 @@
 <template>
   <Layout class-prefix="layout">
-    <Tabs :data-source="recordTypeList" :value.sync="record.type" />
+    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <Tags :data-source="recordTypeList" :value.sync="record.tags"/>
     <div class="formItem-wrapper">
-      <FormItem @update:value="onUpdateNotes" placeholder="点此输入备注..."/>
+      <FormItem :value.sync="record.notes" placeholder="点此输入备注..."/>
     </div>
     <NumberPad @update:value="saveRecord"/>
   </Layout>
@@ -39,15 +39,22 @@
       this.$store.commit('fetchRecords',);
     }
 
-    onUpdateNotes(value: string): undefined {
-      this.record.notes = value;
-      return;
-    }
+    // onUpdateNotes(value: string): undefined {
+    //   console.log('111')
+    //   this.record.notes = value;
+    //   return;
+    // }
 
-    saveRecord(amount: number): undefined {
+    saveRecord(amount: number) {
+      if (!this.record.tags || this.record.tags.length === 0) {
+        return window.alert('请至少选择一个标签');
+      }
       this.record.amount = amount;
       this.record.createdAt = new Date().toISOString();
-      this.$store.commit('createRecord', this.record);
+      if(this.$store.state.createRecordError === null){
+        this.$store.commit('createRecord', this.record);
+        this.record.notes = ''
+      }
       return;
     }
   }
