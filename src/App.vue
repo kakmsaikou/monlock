@@ -16,5 +16,8 @@
     line-height: 1.5;
     font-size: 16px;
     background-color: rgb(245,246,248);
+
+    max-width: 500px;
+    margin: 0 auto;
   }
 </style>

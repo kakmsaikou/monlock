@@ -29,5 +29,5 @@ if (matchMedia('(pointer:fine)').matches) {
   img.style.transform = 'translate(-50%,-50%)'
   img.style.height = '50vh'
   img.style.boxShadow = '0 0 10px rgba(0,0,0,0.05)'
-  document.body.appendChild(img)
+  // document.body.appendChild(img)
 }

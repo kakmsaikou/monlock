@@ -181,7 +181,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
-      $w: 100vw;
+      $w: 100%;
       padding-top: $w/45;
 
       > button {

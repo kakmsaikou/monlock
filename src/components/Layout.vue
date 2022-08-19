@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`" :style="{height: h}">
     <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot/>
     </div>
@@ -9,10 +9,12 @@
 
 <script lang="ts">
   import Nav from '@/components/Nav.vue';
+
   export default {
     name: 'Layout',
     components: {Nav},
-    props: ['classPrefix']
+    props: ['classPrefix'],
+    h : document.body.clientHeight + 'px'
   };
 </script>
 
