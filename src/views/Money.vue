@@ -39,12 +39,6 @@
       this.$store.commit('fetchRecords',);
     }
 
-    // onUpdateNotes(value: string): undefined {
-    //   console.log('111')
-    //   this.record.notes = value;
-    //   return;
-    // }
-
     saveRecord(amount: number) {
       if (!this.record.tags || this.record.tags.length === 0) {
         return window.alert('请至少选择一个标签');
