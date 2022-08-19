@@ -71,7 +71,6 @@
     }
 
     tagString(tags:Tag[]) {
-      console.log(tags)
       return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
     }
 

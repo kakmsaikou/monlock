@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`" :style="{height:h+'px'}">
     <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot/>
     </div>
@@ -14,7 +14,11 @@
     name: 'Layout',
     components: {Nav},
     props: ['classPrefix'],
-    // h : document.body.clientHeight + 'px'
+    data() {
+      return {
+        h: document.body.clientHeight,
+      };
+    }
   };
 </script>
 

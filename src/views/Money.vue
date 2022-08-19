@@ -22,6 +22,10 @@
     components: {FormItem, Tags, NumberPad, Tabs},
   })
   export default class Money extends Vue {
+    get h(){
+      return document.body.clientHeight
+    }
+
     get recordList() {
       return this.$store.state.recordList;
     }
