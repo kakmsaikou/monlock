@@ -20,9 +20,9 @@ new Vue({
 
 console.log();
 if (matchMedia('(pointer:fine)').matches) {
-  window.alert('请使用手机打开本页面，以保证浏览效果。');
+  // window.alert('请使用手机打开本页面，以保证浏览效果。');
   const img = document.createElement('img')
-  img.src = '/img/qrcode.png'
+  img.src = './img/qrcode.png'
   img.style.position = 'fixed'
   img.style.left = '50%'
   img.style.top = '50%'
