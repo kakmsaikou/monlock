@@ -37,12 +37,13 @@
 
     initRecordItem() {
       this.record.notes = '';
-      this.record.tag = {id: '1', name: '衣'};
+      this.record.tag = this.$store.state.tagList[0]
       this.record.amount = undefined;
     }
 
     created() {
       this.$store.commit('fetchRecords',);
+      this.$store.commit('fetchTags',);
       this.initRecordItem()
     }
 
