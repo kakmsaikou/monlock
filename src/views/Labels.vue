@@ -2,8 +2,9 @@
   <Layout>
     <div class="tags">
       <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
+        <tag-icon class="left" :name="tag.icon"/>
         <span>{{ tag.name }}</span>
-        <Icon name="right"/>
+        <Icon class="right" name="right"/>
       </router-link>
     </div>
     <div class="createTag-wrapper">
@@ -47,17 +48,26 @@
       min-height: 44px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       border-bottom: 1px solid rgb(242, 242, 242);
 
-      > span {
-        //font-weight: bold;
+      > .left{
+        flex-grow: 1;
+        width: 1.5em;
+        height: 1.5em;
+        color: rgb(125,137,153);
       }
 
-      > .icon {
+      > span {
+        flex-grow: 10;
+      }
+
+      > .right {
         width: 18px;
         height: 18px;
         color: #666;
+
+        flex-grow: 0
       }
     }
   }

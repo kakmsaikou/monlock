@@ -2,7 +2,11 @@
   <div class="tags">
     <ul class="currentTags">
       <li v-for='tag in tagList' :key="tag.id" @click="toggleTag(tag)"
-          :class="{selected: selectedTag.id === tag.id}">{{ tag.name }}
+          :class="{selected: selectedTag.id === tag.id}">
+        <div class="icon-wrapper">
+          <tag-icon :name="tag.icon"/>
+        </div>
+        <span>{{ tag.name }}</span>
       </li>
     </ul>
     <div class="newTag">
@@ -60,18 +64,34 @@
       }
 
       > li {
-        $h: 24px;
-        background-color: #d9d9d9;
-        height: $h;
-        line-height: $h;
-        border-radius: $h/2;
-        padding: 0 16px;
-        margin-left: 5px;
-        margin-right: 5px;
-        margin-top: 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 20%;
 
-        &.selected {
-          background-color: rgb(234, 244, 253);
+        .icon-wrapper{
+          height: 36px;
+          width: 36px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+
+          .icon{
+            width: 24px;
+            height: 24px;
+            color: rgba(125,137,153);
+          }
+        }
+
+        &.selected{
+          .icon-wrapper{
+            background-color: rgb(234, 244, 253);
+            .icon{
+              color: $color-blue
+            }
+          }
           color: $color-blue;
         }
       }

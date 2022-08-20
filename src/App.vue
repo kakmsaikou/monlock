@@ -17,9 +17,10 @@
     font-size: 16px;
     background-color: rgb(245,246,248);
 
-    @media (pointer: fine) {
-      max-width: 500px;
-      margin: 0 auto;
-    }
+    //TODO
+    //@media (pointer: fine) {
+    //  max-width: 500px;
+    //  margin: 0 auto;
+    //}
   }
 </style>

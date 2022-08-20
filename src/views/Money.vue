@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
-    <Tags :data-source="recordTypeList" :selected-tag.sync="record.tag"/>
+    <Tags :selected-tag.sync="record.tag"/>
     <div class="formItem-wrapper">
       <FormItem :value.sync="record.notes" placeholder="点此输入备注..."/>
     </div>
@@ -48,7 +48,6 @@
     }
 
     saveRecord(amount: number) {
-      console.log('11');
       this.record.amount = amount;
       this.record.createdAt = new Date().toISOString();
       if (this.$store.state.createRecordError === null) {

@@ -47,7 +47,7 @@ const store = new Vuex.Store({
         state.createTagError = new Error('tag name duplicated')
         return
       }
-      state.tagList.push({id: createId().toString(), name: name});
+      state.tagList.push({id: createId().toString(), name: name, icon: 'snacks'});
       store.commit('saveTags');
     },
     saveTags(state) {
