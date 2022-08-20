@@ -46,20 +46,21 @@
     padding-right: 16px;
 
     > .tag {
-      min-height: 44px;
+      min-height: 52px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       border-bottom: 1px solid rgb(242, 242, 242);
 
-      > .left{
-        flex-grow: 1;
-        width: 1.5em;
-        height: 1.5em;
-        color: rgb(125,137,153);
+      > .left::v-deep{
+        background-color: rgb(234, 244, 253);
+        .icon {
+          color: $color-blue
+        }
       }
 
       > span {
+        padding-left: 10px;
         flex-grow: 10;
       }
 

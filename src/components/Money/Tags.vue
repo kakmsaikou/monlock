@@ -71,7 +71,6 @@
 
       }
 
-
       .selected::v-deep {
         .icon-wrapper{
           background-color: rgb(234, 244, 253);
@@ -82,7 +81,6 @@
         color: $color-blue;
       }
     }
-
 
     > .newTag {
       padding-top: 16px;

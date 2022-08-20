@@ -30,6 +30,7 @@
     align-items: center;
     border-radius: 50%;
     background-color: rgb(247,247,247);
+
     .icon{
       fill: currentColor;
       overflow: hidden;
