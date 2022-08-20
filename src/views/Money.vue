@@ -28,7 +28,7 @@
 
     record: RecordItem = {
       type: '-',
-      tag: {id: '', name: ''},
+      tag: {id: '', name: '', icon: ''},
       notes: '',
       amount: undefined,
     };

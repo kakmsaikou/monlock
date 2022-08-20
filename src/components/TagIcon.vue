@@ -1,7 +1,9 @@
 <template>
-  <svg class="icon">
-    <use v-bind:xlink:href='"#"+name'/>
-  </svg>
+  <div class="icon-wrapper">
+    <svg class="icon">
+      <use v-bind:xlink:href='"#"+name'/>
+    </svg>
+  </div>
 </template>
 
 <script lang="ts">
@@ -20,11 +22,21 @@
 </script>
 
 <style lang="scss" scoped>
-  .icon{
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
+  .icon-wrapper{
+    height: 36px;
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgb(247,247,247);
+    .icon{
+      fill: currentColor;
+      overflow: hidden;
+      width: 24px;
+      height: 24px;
+      color: rgba(125,137,153);
+    }
   }
+
 </style>

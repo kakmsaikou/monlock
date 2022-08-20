@@ -3,9 +3,7 @@
     <ul class="currentTags">
       <li v-for='tag in tagList' :key="tag.id" @click="toggleTag(tag)"
           :class="{selected: selectedTag.id === tag.id}">
-        <div class="icon-wrapper">
-          <tag-icon :name="tag.icon"/>
-        </div>
+        <tag-icon :name="tag.icon"/>
         <span>{{ tag.name }}</span>
       </li>
     </ul>
@@ -22,7 +20,7 @@
 
   @Component
   export default class Tags extends mixins(TagHelper) {
-    get tagList(){
+    get tagList() {
       return this.$store.state.tagList;
     }
 
@@ -31,10 +29,10 @@
       this.$store.commit('fetchTags');
     }
 
-    @Prop()selectedTag!: Tag
+    @Prop() selectedTag!: Tag;
 
     toggleTag(tag: Tag): undefined {
-      this.$emit('update:selected-tag', tag)
+      this.$emit('update:selected-tag', tag);
       return;
     }
   }
@@ -71,32 +69,20 @@
         align-items: center;
         width: 20%;
 
+      }
+
+
+      .selected::v-deep {
         .icon-wrapper{
-          height: 36px;
-          width: 36px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 50%;
-
-          .icon{
-            width: 24px;
-            height: 24px;
-            color: rgba(125,137,153);
+          background-color: rgb(234, 244, 253);
+          .icon {
+            color: $color-blue
           }
         }
-
-        &.selected{
-          .icon-wrapper{
-            background-color: rgb(234, 244, 253);
-            .icon{
-              color: $color-blue
-            }
-          }
-          color: $color-blue;
-        }
+        color: $color-blue;
       }
     }
+
 
     > .newTag {
       padding-top: 16px;
