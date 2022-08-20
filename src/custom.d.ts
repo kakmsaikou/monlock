@@ -6,7 +6,7 @@ declare module '*.svg' {
 
 type RecordItem = {
   type: string,
-  tags: Tag[],
+  tag: Tag,
   notes: string,
   amount: number | undefined
   createdAt?: string

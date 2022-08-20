@@ -1,8 +1,8 @@
 <template>
   <div class="tags">
     <ul class="currentTags">
-      <li v-for='tag in tagList' :key="tag.id" @click="toggleTag.call(null,tag)"
-          :class="{selected: selectedTags.indexOf(tag) >= 0}">{{ tag.name }}
+      <li v-for='tag in tagList' :key="tag.id" @click="toggleTag(tag)"
+          :class="{selected: selectedTag.id === tag.id}">{{ tag.name }}
       </li>
     </ul>
     <div class="newTag">
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import {mixins} from 'vue-class-component';
   import TagHelper from '@/mixins/TagHelper';
 
@@ -22,20 +22,14 @@
       return this.$store.state.tagList;
     }
 
-    selectedTags: string[] = [];
-
     created() {
       this.$store.commit('fetchTags');
     }
 
-    toggleTag(tag: string): undefined {
-      const index = this.selectedTags.indexOf(tag);
-      if (index >= 0) {
-        this.selectedTags.splice(index, 1);
-      } else {
-        this.selectedTags.push(tag);
-      }
-      this.$emit('update:value', this.selectedTags);
+    @Prop()selectedTag!: Tag
+
+    toggleTag(tag: Tag): undefined {
+      this.$emit('update:selected-tag', tag)
       return;
     }
   }

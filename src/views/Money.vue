@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
-    <Tags :data-source="recordTypeList" :value.sync="record.tags"/>
+    <Tags :data-source="recordTypeList" :selected-tag.sync="record.tag"/>
     <div class="formItem-wrapper">
       <FormItem :value.sync="record.notes" placeholder="点此输入备注..."/>
     </div>
@@ -22,36 +22,37 @@
     components: {FormItem, Tags, NumberPad, Tabs},
   })
   export default class Money extends Vue {
-    get h(){
-      return document.body.clientHeight
-    }
-
     get recordList() {
       return this.$store.state.recordList;
     }
 
     record: RecordItem = {
       type: '-',
-      tags: [],
+      tag: {id: '', name: ''},
       notes: '',
       amount: undefined,
     };
 
     recordTypeList = recordTypeList;
 
-    beforeCreate() {
+    initRecordItem() {
+      this.record.notes = '';
+      this.record.tag = {id: '1', name: '衣'};
+      this.record.amount = undefined;
+    }
+
+    created() {
       this.$store.commit('fetchRecords',);
+      this.initRecordItem()
     }
 
     saveRecord(amount: number) {
-      if (!this.record.tags || this.record.tags.length === 0) {
-        return window.alert('请至少选择一个标签');
-      }
+      console.log('11');
       this.record.amount = amount;
       this.record.createdAt = new Date().toISOString();
-      if(this.$store.state.createRecordError === null){
+      if (this.$store.state.createRecordError === null) {
         this.$store.commit('createRecord', this.record);
-        this.record.notes = ''
+        this.initRecordItem();
       }
       return;
     }
