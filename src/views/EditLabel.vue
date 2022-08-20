@@ -30,6 +30,7 @@
       return this.$store.state.currentTag
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     created() {
       this.$store.commit('fetchTags')
       this.$store.commit('setCurrentTag', this.$route.params.id)

@@ -41,6 +41,7 @@
       this.record.amount = undefined;
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     created() {
       this.$store.commit('fetchRecords',);
       this.$store.commit('fetchTags',);

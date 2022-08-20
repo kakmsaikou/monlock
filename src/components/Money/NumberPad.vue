@@ -33,7 +33,8 @@
     str = '';
     outputY = '';
 
-    created(): undefined {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    created() {
       this.clearContent();
       return;
     }

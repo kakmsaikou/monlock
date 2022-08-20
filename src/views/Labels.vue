@@ -27,6 +27,7 @@
       return this.$store.state.tagList
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     created(){
       this.$store.commit('fetchTags')
     }
