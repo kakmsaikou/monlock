@@ -3,10 +3,10 @@
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <ol v-if="groupedList.length > 0">
       <li v-for="(group,index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }}<span>{{group.total}} 元</span></h3>
+        <h3 class="title">{{ beautify(group.title) }}<span>{{ group.total }} 元</span></h3>
         <ol>
           <li class="record" v-for="item in group.items" :key="item.id">
-            <span>{{ tagString(item.tags) }}</span>
+            <span>{{ item.tag.name }}</span>
             <span class="notes">{{ item.notes }}</span>
             <span>￥ {{ item.amount }}</span>
           </li>
@@ -70,10 +70,6 @@
       return result;
     }
 
-    tagString(tags:Tag[]) {
-      return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
-    }
-
     beautify(string: string) {
       const now = dayjs();
       const day = dayjs(string);
@@ -118,7 +114,7 @@
     color: #999;
   }
 
-  .no-result{
+  .no-result {
     padding: 16px;
     text-align: center;
   }
