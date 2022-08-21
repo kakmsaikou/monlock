@@ -35,10 +35,6 @@ const store = new Vuex.Store({
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (state.tagList.length === 0 && !window.localStorage.getItem('_idMax')) {
-        // store.commit('createTag', '衣');
-        // store.commit('createTag', '食');
-        // store.commit('createTag', '住');
-        // store.commit('createTag', '行');
         const initTagList = initTag
         console.log(initTagList.length)
         for(let i = 0;i<initTagList.length ; i++){
