@@ -44,7 +44,7 @@
   .tags {
     font-size: 16px;
     background-color: white;
-    margin: 16px 12px 0;
+    margin: 16px 12px 80px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
     padding-left: 16px;
     padding-right: 16px;
@@ -72,14 +72,16 @@
         width: 18px;
         height: 18px;
         color: #666;
-
         flex-grow: 0
       }
     }
   }
 
   .createTag-wrapper {
-      padding-top: 44px;
-      text-align: center;
+    position: fixed;
+    bottom: 72px;
+    right: 50%;
+    transform: translateX(50%);
+    box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.20);
   }
 </style>

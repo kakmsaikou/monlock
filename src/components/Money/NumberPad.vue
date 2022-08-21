@@ -186,10 +186,9 @@
       justify-content: space-evenly;
       $w: 100vw;
       padding-top: $w/45;
-      // TODO
-      //@media (pointer: fine) {
-      //  padding-top: 11.1px;
-      //}
+      @media (pointer: fine) {
+        padding-top: 11.1px;
+      }
 
 
       > button {
@@ -202,13 +201,12 @@
         border-radius: 9px;
         font-size: 20px;
 
-        // TODO
-        //@media (pointer: fine) {
-        //  width: 111.1px;
-        //  height: 60.1px;
-        //  line-height: 61.1px;
-        //  margin-bottom: 11.1px;
-        //}
+        @media (pointer: fine) {
+          width: 111.1px;
+          height: 60.1px;
+          line-height: 61.1px;
+          margin-bottom: 11.1px;
+        }
 
         &:last-child {
           background-color: $color-red;

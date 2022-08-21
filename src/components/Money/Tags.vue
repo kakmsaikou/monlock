@@ -8,7 +8,9 @@
       </li>
     </ul>
     <div class="newTag">
-      <button @click="createTag">新增标签</button>
+      <router-link :to="`/labels/create`">
+        <span>创建标签</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -68,7 +70,8 @@
         justify-content: center;
         align-items: center;
         width: 20%;
-        > span{
+
+        > span {
           width: 100%;
           overflow: hidden;
           text-align: center;
@@ -79,12 +82,14 @@
       }
 
       .selected::v-deep {
-        .icon-wrapper{
+        .icon-wrapper {
           background-color: rgb(234, 244, 253);
+
           .icon {
             color: $color-blue
           }
         }
+
         color: $color-blue;
       }
     }
@@ -93,7 +98,7 @@
       padding-top: 16px;
       order: 0;
 
-      button {
+      span {
         background-color: transparent;
         border: none;
         border-bottom: 1px solid;
