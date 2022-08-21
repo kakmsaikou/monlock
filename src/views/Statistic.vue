@@ -1,20 +1,22 @@
 <template>
   <Layout>
-    <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <ol v-if="groupedList.length > 0">
-      <li v-for="(group,index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }}<span>{{ group.total }} 元</span></h3>
-        <ol>
-          <li class="record" v-for="item in group.items" :key="item.id">
-            <span>{{ item.tag.name }}</span>
-            <span class="notes">{{ item.notes }}</span>
-            <span>￥ {{ item.amount }}</span>
-          </li>
-        </ol>
-      </li>
-    </ol>
-    <div class="no-result" v-else>
-      目前没有相关记录
+    <div class="wrapper">
+      <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+      <ol class="recordList" v-if="groupedList.length > 0">
+        <li v-for="(group,index) in groupedList" :key="index">
+          <h3 class="title">{{ beautify(group.title) }}<span>{{ group.total }} 元</span></h3>
+          <ol>
+            <li class="record" v-for="item in group.items" :key="item.id">
+              <span>{{ item.tag.name }}</span>
+              <span class="notes">{{ item.notes }}</span>
+              <span>￥ {{ item.amount }}</span>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <div class="no-result" v-else>
+        目前没有相关记录
+      </div>
     </div>
   </Layout>
 </template>
@@ -100,25 +102,42 @@
     align-items: center;
   }
 
-  .title {
-    @extend %item
-  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+    flex: 1 1 0;
 
-  .record {
-    @extend %item;
-    background-color: #fff;
-  }
+    > .recordList {
+      flex: 1;
+      height: 100%;
+      overflow: auto;
+      > li {
+        > .title {
+          @extend %item
+        }
 
-  .notes {
-    margin-right: auto;
-    margin-left: 8px;
-    padding-top: 2px;
-    color: #999;
-    font-size: 14px;
-  }
+        > ol {
+          > .record {
+            @extend %item;
+            background-color: #fff;
 
-  .no-result {
-    padding: 16px;
-    text-align: center;
+            > .notes {
+              margin-right: auto;
+              margin-left: 8px;
+              padding-top: 2px;
+              color: #999;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      .no-result {
+        padding: 16px;
+        text-align: center;
+      }
+    }
   }
 </style>
