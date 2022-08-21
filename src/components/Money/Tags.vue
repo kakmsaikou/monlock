@@ -63,12 +63,19 @@
       }
 
       > li {
-        border: 1px solid red;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 20%;
+        > span{
+          width: 100%;
+          overflow: hidden;
+          text-align: center;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 12px;
+        }
       }
 
       .selected::v-deep {

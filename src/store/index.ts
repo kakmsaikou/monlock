@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
 import router from '@/router';
+import initTag from '@/constants/initTag';
 
 Vue.use(Vuex);
 
@@ -34,20 +35,38 @@ const store = new Vuex.Store({
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (state.tagList.length === 0 && !window.localStorage.getItem('_idMax')) {
-        store.commit('createTag', '衣');
-        store.commit('createTag', '食');
-        store.commit('createTag', '住');
-        store.commit('createTag', '行');
+        // store.commit('createTag', '衣');
+        // store.commit('createTag', '食');
+        // store.commit('createTag', '住');
+        // store.commit('createTag', '行');
+        const initTagList = initTag
+        console.log(initTagList.length)
+        for(let i = 0;i<initTagList.length ; i++){
+          store.commit('createTag', initTagList[i]);
+        }
       }
     },
-    createTag(state, name: string) {
+    createTag(state, payload: { name: string, icon: string }) {
+      const {name, icon} = payload;
       store.state.createTagError = null;
       const names = state.tagList.map(item => item.name);
-      if (names.indexOf(name) >= 0) {
-        state.createTagError = new Error('tag name duplicated');
+      if (name.length > 10) {
+        state.createTagError = new Error('tag name length is overflow');
+        window.alert('标签名过长');
         return;
       }
-      state.tagList.push({id: createId().toString(), name: name, icon: 'snacks'});
+      if (!name) {
+        state.createTagError = new Error('tag name is empty');
+        window.alert('标签名不能为空');
+        return;
+      }
+      if (names.indexOf(name) >= 0) {
+        state.createTagError = new Error('tag name duplicated');
+        window.alert('标签名重复');
+        return;
+      }
+      state.tagList.push({id: createId().toString(), name: name, icon: icon});
+      // 不能把 window.alert('创建成功') 写这，会导致初始化时弹窗
       store.commit('saveTags');
     },
     saveTags(state) {
@@ -56,10 +75,15 @@ const store = new Vuex.Store({
     updateTag(state, payload: { id: string, name: string, icon: string }) {
       const {id, name, icon} = payload;
       const tag = state.tagList.filter(item => item.id === id)[0];
+      if (name.length > 10) {
+        state.createTagError = new Error('tag name length is overflow');
+        window.alert('标签名过长');
+        return;
+      }
       if (tag) {
         const names = state.tagList.map(item => item.name);
         if (!name) {
-          window.alert('不能输入一个空的标签名');
+          window.alert('标签名不能为空');
           return;
         }
         if (tag.name !== name && names.indexOf(name) >= 0) {

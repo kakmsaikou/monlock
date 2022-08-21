@@ -8,7 +8,11 @@
       </router-link>
     </div>
     <div class="createTag-wrapper">
-      <Button class="createTag" @click="createTag">新建标签</Button>
+      <Button>
+        <router-link :to="`/labels/create`">
+          <span>创建标签</span>
+        </router-link>
+      </Button>
     </div>
   </Layout>
 </template>

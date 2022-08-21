@@ -2,12 +2,11 @@
   <Layout>
     <div class="navBar">
       <Icon name="left" @click.native="goBack"/>
-      <span>编辑标签</span>
-      <button @click="commitUpdate">保存</button>
+      <span>创建标签</span>
+      <button @click="createTag">保存</button>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="currentTag.name"
-                @update:value="update"
+      <FormItem @update:value="update"
                 field-name="标签名"
                 placeholder="点此输入标签名..."/>
       <ul>
@@ -17,9 +16,6 @@
           <tag-icon :name="item"/>
         </li>
       </ul>
-    </div>
-    <div class="button-wrapper">
-      <Button @click="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -34,25 +30,9 @@
   @Component({
     components: {FormItem, Button},
   })
-  export default class EditLabel extends Vue {
-    get currentTag() {
-      return this.$store.state.currentTag;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    created() {
-      this.$store.commit('fetchTags');
-      this.$store.commit('setCurrentTag', this.$route.params.id);
-      if (!this.currentTag) {
-        this.$router.replace('/404');
-      }
-      this.tempTagName = this.currentTag.name;
-      this.tempTagIcon = this.currentTag.icon;
-    }
-
+  export default class CreateTag extends Vue {
     tempTagName =  ''
-    tempTagIcon =  ''
-
+    tempTagIcon =  'meals'
     iconName = iconName;
 
     goBack() {
@@ -63,23 +43,16 @@
       this.tempTagName = name;
     }
 
-    remove() {
-      if (this.currentTag) {
-        this.$store.commit('removeTag', this.currentTag.id);
-      }
-    }
-
-    commitUpdate() {
-      if (this.currentTag) {
-        this.$store.commit('updateTag', {
-          id: this.currentTag.id,
-          name: this.tempTagName,
-          icon: this.tempTagIcon});
-      }
-    }
-
     updateIcon(iconName: string) {
       this.tempTagIcon = iconName;
+    }
+
+    createTag(){
+      this.$store.commit('createTag', {name:this.tempTagName,icon:this.tempTagIcon})
+      if(this.$store.state.createTagError === null){
+        window.alert('创建成功');
+        this.goBack()
+      }
     }
   }
 </script>
