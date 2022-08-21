@@ -112,7 +112,9 @@
   .notes {
     margin-right: auto;
     margin-left: 8px;
+    padding-top: 2px;
     color: #999;
+    font-size: 14px;
   }
 
   .no-result {
