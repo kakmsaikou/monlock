@@ -23,17 +23,20 @@
   import {mixins} from 'vue-class-component';
   import TagHelper from '@/mixins/TagHelper';
 
+  // TODO
+  // 封装删除标签和创建标签按钮/抽离编辑标签页和创建标签页的共有属性
+
   @Component({
     components: {Button},
   })
-  export default class Labels extends mixins(TagHelper){
-    get tags(){
-      return this.$store.state.tagList
+  export default class Labels extends mixins(TagHelper) {
+    get tags() {
+      return this.$store.state.tagList;
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    created(){
-      this.$store.commit('fetchTags')
+    created() {
+      this.$store.commit('fetchTags');
     }
   }
 </script>
@@ -56,8 +59,9 @@
       justify-content: flex-start;
       border-bottom: 1px solid rgb(242, 242, 242);
 
-      > .left::v-deep{
+      > .left::v-deep {
         background-color: rgb(234, 244, 253);
+
         .icon {
           color: $color-blue
         }
