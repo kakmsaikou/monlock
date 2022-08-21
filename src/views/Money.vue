@@ -35,7 +35,7 @@
       tag: {id: '', name: '', icon: ''},
       notes: '',
       amount: undefined,
-      createdAt: new Date().toISOString()
+      createdAt: ''
     };
 
     formatDate(isoString: string) {
@@ -48,6 +48,7 @@
       this.record.notes = '';
       this.record.tag = this.$store.state.tagList[0];
       this.record.amount = undefined;
+      this.record.createdAt =new Date().toISOString()
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -89,7 +90,7 @@
       font-size: 14px;
       background-color: transparent;
       color: #999;
-      padding-right: 10px;
+      margin-right: 16px;
     }
   }
 </style>
