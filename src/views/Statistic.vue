@@ -2,6 +2,7 @@
   <Layout>
     <div class="wrapper">
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+      <Chart :options="x"/>
       <ol class="recordList" v-if="groupedList.length > 0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h3 class="title">{{ beautify(group.title) }}<span>{{ group.total }} 元</span></h3>
@@ -28,9 +29,10 @@
   import recordTypeList from '@/constants/recordTypeList';
   import dayjs from 'dayjs';
   import clone from '@/lib/clone';
+  import Chart from '@/components/Statistic/Chart.vue';
 
   @Component({
-    components: {Tabs},
+    components: {Tabs, Chart},
   })
   export default class statistic extends Vue {
     type = '-';
@@ -73,6 +75,40 @@
       return result;
     }
 
+    get x() {
+      return {
+        title: {
+          text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量']
+        },
+        xAxis: {
+          data: [
+            '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
+            '20', '21', '22', '23', '24', '25', '26', '27', '28', '29',
+            '30'
+          ]
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '销量',
+            type: 'line',
+            data: [
+              5, 20, 36, 10, 10, 20,
+              5, 20, 36, 10, 10, 20,
+              5, 20, 36, 10, 10, 20,
+              5, 20, 36, 10, 10, 20,
+              5, 20, 36, 10, 10, 20,
+            ]
+          }
+        ]
+      };
+    }
+
     beautify(string: string) {
       const now = dayjs();
       const day = dayjs(string);
@@ -113,6 +149,11 @@
       flex: 1;
       height: 100%;
       overflow: auto;
+
+      &::-webkit-scrollbar {
+        display: none; /*ChromeSafari*/
+      }
+
       > li {
         > .title {
           @extend %item
