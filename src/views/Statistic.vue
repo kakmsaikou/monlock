@@ -2,7 +2,9 @@
   <Layout>
     <div class="wrapper">
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-      <Chart :options="x"/>
+      <div class="chart-wrapper" ref="chartWrapper">
+        <Chart class="chart" :options="x"/>
+      </div>
       <ol class="recordList" v-if="groupedList.length > 0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h3 class="title">{{ beautify(group.title) }}<span>{{ group.total }} 元</span></h3>
@@ -43,6 +45,10 @@
       this.$store.commit('fetchRecords');
     }
 
+    mounted() {
+      (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999;
+    }
+
     get recordList() {
       return (this.$store.state as RootState).recordList;
     }
@@ -78,25 +84,50 @@
     get x() {
       return {
         title: {
-          text: 'ECharts 入门示例'
+          // text: 'ECharts 入门示例'
         },
-        tooltip: {},
+        tooltip: {
+          show:true,
+          triggerOn:'click',
+          formatter: '{c}',
+          padding:[2,4],
+          backgroundColor: `rgb(92,123,217)`,
+          borderWidth: 0,
+          textStyle:{
+            color: '#fff'
+          },
+          shadowStyle: {
+            color:'rgba(150,150,150,0.3)'
+          }
+        },
         legend: {
-          data: ['销量']
+          // data: ['销量']
+        },
+        grid: {
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 20
         },
         xAxis: {
           data: [
-            '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
-            '20', '21', '22', '23', '24', '25', '26', '27', '28', '29',
-            '30'
-          ]
+            '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'
+          ],
+          axisTick: {
+            alignWithLabel: true
+          }
         },
-        yAxis: {},
+        yAxis: {
+          show: false
+        },
         series: [
           {
-            name: '销量',
+            // name: '销量',
             type: 'line',
+            symbol:'circle',
+            symbolSize:8,
             data: [
               5, 20, 36, 10, 10, 20,
               5, 20, 36, 10, 10, 20,
@@ -144,6 +175,20 @@
     height: 100%;
     overflow: auto;
     flex: 1 1 0;
+
+    .chart-wrapper {
+      overflow: auto;
+      flex: 1;
+
+      &::-webkit-scrollbar {
+        display: none; /*ChromeSafari*/
+      }
+
+      .chart {
+        width: 430%;
+        overflow: hidden;
+      }
+    }
 
     > .recordList {
       flex: 1;
