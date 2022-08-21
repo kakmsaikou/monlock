@@ -63,12 +63,12 @@
       }
 
       > li {
+        border: 1px solid red;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 20%;
-
       }
 
       .selected::v-deep {

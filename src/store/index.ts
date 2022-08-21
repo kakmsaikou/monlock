@@ -41,11 +41,11 @@ const store = new Vuex.Store({
       }
     },
     createTag(state, name: string) {
-      store.state.createTagError = null
+      store.state.createTagError = null;
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
-        state.createTagError = new Error('tag name duplicated')
-        return
+        state.createTagError = new Error('tag name duplicated');
+        return;
       }
       state.tagList.push({id: createId().toString(), name: name, icon: 'snacks'});
       store.commit('saveTags');
@@ -53,16 +53,22 @@ const store = new Vuex.Store({
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
-    updateTag(state, payload: { id: string, name: string }) {
-      const {id, name} = payload;
+    updateTag(state, payload: { id: string, name: string, icon: string }) {
+      const {id, name, icon} = payload;
       const tag = state.tagList.filter(item => item.id === id)[0];
       if (tag) {
         const names = state.tagList.map(item => item.name);
-        if (names.indexOf(name) >= 0) {
+        if (!name) {
+          window.alert('不能输入一个空的标签名');
+          return;
+        }
+        if (tag.name !== name && names.indexOf(name) >= 0) {
           window.alert('标签名重复');
         } else {
           tag.name = name;
+          tag.icon = icon;
           store.commit('saveTags');
+          window.alert('保存成功');
         }
       }
     },

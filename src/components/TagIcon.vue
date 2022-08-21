@@ -19,6 +19,7 @@
   } catch (e) {
     console.log(e);
   }
+
 </script>
 
 <style lang="scss" scoped>
@@ -30,6 +31,14 @@
     align-items: center;
     border-radius: 50%;
     background-color: rgb(247,247,247);
+
+    .icon{
+      fill: currentColor;
+      overflow: hidden;
+      width: 24px;
+      height: 24px;
+      color: rgba(125,137,153);
+    }
 
     .icon{
       fill: currentColor;

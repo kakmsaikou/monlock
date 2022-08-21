@@ -1,0 +1,1 @@
+export default ['meals','beer','car','child','clothes','cosmetic','digital-product','entertainment','gift','house','insurance','luck-money','medicine','merchant','necessities','others','parking-fee','pet','phone','public-service','recharge','salary','snacks','sports','stock','study','traffic','transfer','travel','utility-bill']
