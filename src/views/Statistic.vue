@@ -32,6 +32,7 @@
   import dayjs from 'dayjs';
   import clone from '@/lib/clone';
   import Chart from '@/components/Statistic/Chart.vue';
+  import _ from 'lodash'
 
   @Component({
     components: {Tabs, Chart},
@@ -82,7 +83,26 @@
       return result;
     }
 
+    get y(){
+      const today = new Date()
+      const array = []
+      for(let i = 0; i < 30 ;i++){
+        const date = dayjs(today)
+        const dateString = date.subtract(i, 'day').format('YYYY-MM-DD')
+        const found = _.find(this.recordList, {createdAt: dateString})
+        array.push({
+          date: dateString,
+          value: found ? found.amount : 0
+        })
+      }
+      array.sort((a,b)=>( a.date >= b.date ? 1 : -1))
+      return array
+    }
+
     get x() {
+      const keys = this.y.map(item=>item.date)
+      const values = this.y.map(item=>item.value)
+
       return {
         title: {
           // text: 'ECharts 入门示例'
@@ -111,13 +131,14 @@
           bottom: 20
         },
         xAxis: {
-          data: [
-            '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'
-          ],
+          data: keys,
           axisTick: {
             alignWithLabel: true
+          },
+          axisLabel:{
+            formatter: function(value:string,index: number){
+              return value.substr(5)
+            }
           }
         },
         yAxis: {
@@ -129,13 +150,7 @@
             type: 'line',
             symbol:'circle',
             symbolSize:8,
-            data: [
-              5, 20, 36, 10, 10, 20,
-              5, 20, 36, 10, 10, 20,
-              5, 20, 36, 10, 10, 20,
-              5, 20, 36, 10, 10, 20,
-              5, 20, 36, 10, 10, 20,
-            ]
+            data: values
           }
         ]
       };
