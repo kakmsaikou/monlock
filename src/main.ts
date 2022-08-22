@@ -20,8 +20,8 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 
-// if (matchMedia('(pointer:fine)').matches) {
-//   // window.alert('请使用手机打开本页面，以保证浏览效果。');
+if (matchMedia('(pointer:fine)').matches) {
+  window.alert('请使用手机打开本页面，以获得最佳浏览效果。');
 //   const img = document.createElement('img')
 //   img.src = './img/qrcode.png'
 //   img.style.position = 'fixed'
@@ -31,4 +31,4 @@ new Vue({
 //   img.style.height = '50vh'
 //   img.style.boxShadow = '0 0 10px rgba(0,0,0,0.05)'
 //   // document.body.appendChild(img)
-// }
+}

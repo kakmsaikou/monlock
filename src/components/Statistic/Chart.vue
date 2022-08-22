@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" ref="wrapper">chart</div>
+  <div class="wrapper" ref="wrapper" style="height: 152px">chart</div>
 </template>
 
 <script lang="ts">
@@ -27,6 +27,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .wrapper {
-  }
 </style>

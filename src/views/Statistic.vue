@@ -128,8 +128,8 @@
         grid: {
           left: 0,
           right: 0,
-          top: 0,
-          bottom: 20
+          top: 20,
+          bottom: 24
         },
         xAxis: {
           data: keys,
@@ -195,7 +195,6 @@
 
     .chart-wrapper {
       overflow: auto;
-      flex: 1;
 
       &::-webkit-scrollbar {
         display: none; /*ChromeSafari*/
