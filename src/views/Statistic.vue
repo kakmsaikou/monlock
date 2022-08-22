@@ -49,6 +49,7 @@
     mounted() {
       const div =this.$refs.chartWrapper as HTMLDivElement
       div.scrollLeft = div.scrollWidth;
+
     }
 
     get recordList() {
@@ -89,10 +90,10 @@
       for(let i = 0; i < 30 ;i++){
         const date = dayjs(today)
         const dateString = date.subtract(i, 'day').format('YYYY-MM-DD')
-        const found = _.find(this.recordList, {createdAt: dateString})
+        const found = _.find(this.groupedList, {title: dateString})
         array.push({
           key: dateString,
-          value: found ? found.amount : 0
+          value: found ? found.total : 0
         })
       }
       array.sort((a,b)=>( a.key >= b.key ? 1 : -1))
