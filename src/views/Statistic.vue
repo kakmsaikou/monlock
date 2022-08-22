@@ -3,7 +3,7 @@
     <div class="wrapper">
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
       <div class="chart-wrapper" ref="chartWrapper">
-        <Chart class="chart" :options="x"/>
+        <Chart class="chart" :options="chartOptions"/>
       </div>
       <ol class="recordList" v-if="groupedList.length > 0">
         <li v-for="(group,index) in groupedList" :key="index">
@@ -83,7 +83,7 @@
       return result;
     }
 
-    get y(){
+    get keyValueList(){
       const today = new Date()
       const array = []
       for(let i = 0; i < 30 ;i++){
@@ -91,17 +91,17 @@
         const dateString = date.subtract(i, 'day').format('YYYY-MM-DD')
         const found = _.find(this.recordList, {createdAt: dateString})
         array.push({
-          date: dateString,
+          key: dateString,
           value: found ? found.amount : 0
         })
       }
-      array.sort((a,b)=>( a.date >= b.date ? 1 : -1))
+      array.sort((a,b)=>( a.key >= b.key ? 1 : -1))
       return array
     }
 
-    get x() {
-      const keys = this.y.map(item=>item.date)
-      const values = this.y.map(item=>item.value)
+    get chartOptions() {
+      const keys = this.keyValueList.map(item=>item.key)
+      const values = this.keyValueList.map(item=>item.value)
 
       return {
         title: {
